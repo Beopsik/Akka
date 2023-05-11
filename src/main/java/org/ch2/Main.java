@@ -1,9 +1,9 @@
-package org.example;
+package org.ch2;
 
 import akka.actor.ActorRef;
 import akka.actor.ActorSystem;
 import akka.actor.Props;
-import org.example.actor.PingActor;
+import org.ch2.actor.PingActor;
 
 public class Main {
     public static void main(String[] args) {

@@ -1,26 +1,25 @@
-package org.example.actor;
+package org.ch2.actor;
 
 import akka.actor.ActorRef;
-import akka.actor.Props;
 import akka.actor.UntypedActor;
 import akka.event.Logging;
 import akka.event.LoggingAdapter;
 
-public class PingActor extends UntypedActor {
+public class PongActor extends UntypedActor {
     private LoggingAdapter log = Logging.getLogger(getContext().system(), this);
-    private ActorRef pong;
+    private ActorRef ping;
 
-    @Override
-    public void preStart(){
-        this.pong = context().actorOf(Props.create(PongActor.class, getSelf()), "pongActor");
+    public PongActor(ActorRef ping) {
+        this.ping = ping;
     }
 
     @Override
     public void onReceive(Object message) throws Exception {
         if (message instanceof String) {
             String msg = (String) message;
-            log.info("Ping received {}", msg);
-            pong.tell("ping", getSelf());
+            log.info("Pong received {}", msg);
+            ping.tell("pong", getSelf());
+            Thread.sleep(1000);
         }
     }
 }
